@@ -1,4 +1,4 @@
-"""Personal Windows dock. Python/Tk standard library only; no network access."""
+"""Personal Windows dock. Python/Tk standard library; no background network access."""
 import argparse
 import ctypes
 from ctypes import wintypes as W
@@ -23,6 +23,7 @@ CONFIG = APP_DIR / 'config.json'
 PYTHONW = str(Path(sys.executable).with_name('pythonw.exe'))
 SCRIPT = str(Path(__file__).resolve())
 RUN_KEY = r'Software\Microsoft\Windows\CurrentVersion\Run'
+ATRIA_APPS_URL = 'https://atria.jealrodos.xyz/icons/atria/apps.html'
 GROUPS=('Daily','Create','Build','Play','Tools')
 user32, kernel32, shell32 = ctypes.windll.user32, ctypes.windll.kernel32, ctypes.windll.shell32
 user32.SetProcessDPIAware()
@@ -309,6 +310,9 @@ class Dock:
             self.atria_font='Josefin Sans'
         self.atria_signature=tk.Canvas(header,width=self.s(175),height=self.s(30),highlightthickness=0)
         self.atria_signature.pack(side='right',padx=(self.s(12),0))
+        self.atria_signature.configure(cursor='hand2',takefocus=True)
+        for sequence in ('<Button-1>','<Return>','<space>'):
+            self.atria_signature.bind(sequence,lambda event:open_target({'Target':ATRIA_APPS_URL}))
         self.power_button=tk.Button(header,text='Power mode',command=self.toggle_power_mode,font=('Segoe UI',10,'bold'),relief='flat',bd=0,padx=self.s(18),pady=self.s(8),cursor='hand2')
         self.power_button.pack(side='right')
         self.power_button.bind('<Button-3>',self.power_menu)

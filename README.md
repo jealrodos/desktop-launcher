@@ -1,5 +1,8 @@
 # Desktop Launcher
 
+The “part of atria” header link opens the [Atria app directory](https://atria.jealrodos.xyz/icons/atria/apps.html)
+in your default browser. It also supports keyboard activation.
+
 A small Windows launcher for your own apps, files and folders. It groups
 shortcuts into Daily, Create, Build, Play and Tools, with search, native Windows
 icons and running-app indicators.
